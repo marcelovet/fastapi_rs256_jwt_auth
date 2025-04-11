@@ -7,7 +7,7 @@ app = FastAPI(title="FastAPI RS256 JWT Auth")
 # Configuração CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # URL do frontend Vue.js
+    allow_origins=["http://localhost:5173"],  # URL for Vue.js
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -19,4 +19,4 @@ app.include_router(auth_router)
 
 @app.get("/")
 async def root():
-    return {"message": "FastAPI JWT Auth com RS256"}
+    return {"message": "FastAPI JWT Auth with RS256"}

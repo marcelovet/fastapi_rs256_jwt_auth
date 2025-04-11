@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '@/stores';
-import router from '@/router'; // TODO: must implement
+import router from '@/router';
 
 const api = axios.create({
   baseURL: 'http://localhost:8080',
@@ -9,7 +9,7 @@ const api = axios.create({
   },
 });
 
-// Interceptor para adicionar token a todas as requisições
+// Interceptor to add the access token to the request headers
 api.interceptors.request.use(
   (config) => {
     const token = store.getters['auth/accessToken'];
@@ -21,32 +21,32 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Interceptor para lidar com erros de autenticação
+// Interceptor to deal with 401 errors
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
     
-    // Se receber erro 401 (não autorizado) e não estiver tentando renovar token
+    // if receives a 401 error and is not trying to refresh the token
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       
       try {
-        // Tentar renovar o token
+        // tries to refresh the token
         const refreshToken = store.getters['auth/refreshToken'];
         if (refreshToken) {
           const response = await axios.post('http://localhost:8000/auth/refresh', { token: refreshToken });
           const { access_token } = response.data;
           
-          // Atualizar token na store
+          // update the tokens in the store
           store.dispatch('auth/setTokens', { access_token, refresh_token: refreshToken });
           
-          // Refazer a requisição original com o novo token
+          // do another request with the new token
           originalRequest.headers.Authorization = `Bearer ${access_token}`;
           return api(originalRequest);
         }
       } catch (refreshError) {
-        // Se a renovação falhar, fazer logout e redirecionar para login
+        // if refresh fails, do logout and redirect to login
         store.dispatch('auth/logout');
         router.push('/login');
       }

@@ -30,7 +30,7 @@ const actions = {
       commit('AUTH_SUCCESS', { access_token, refresh_token });
       return await dispatch('fetchUser');
     } catch (error) {
-      commit('AUTH_ERROR', error.response?.data?.detail || 'Erro de autenticação');
+      commit('AUTH_ERROR', error.response?.data?.detail || 'Authentication failed');
       throw error;
     }
   },
@@ -42,7 +42,7 @@ const actions = {
       commit('SET_USER', user);
       return user;
     } catch (error) {
-      console.error('Erro ao buscar usuário:', error);
+      console.error('Error while searching user:', error);
       throw error;
     }
   },

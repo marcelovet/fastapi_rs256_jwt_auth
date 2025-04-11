@@ -67,9 +67,9 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
-  <script>
+<script>
   import { computed, ref, onMounted } from 'vue';
   import { useStore } from 'vuex';
   
@@ -114,9 +114,9 @@
       };
     },
   };
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
   .home-container {
     max-width: 900px;
     margin: 0 auto;
@@ -269,4 +269,4 @@
       text-align: center;
     }
   }
-  </style>
+</style>

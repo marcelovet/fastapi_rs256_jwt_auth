@@ -1,6 +1,6 @@
 # 🔐 RS256 JWT Authentication System
 
-[Auth Banner](https://dummyimage.com/1200x300/0a2563/ffffff.png&text=RS2560+JWT+Authentication)
+![Auth Banner](https://dummyimage.com/1200x300/0a2563/ffffff.png&text=RS2560+JWT+Authentication)
 
 A robust authentication system built with FastAPI and Vue.js, implementing JWT authentication with RS256 algorithm for enhanced security.
 
@@ -66,3 +66,9 @@ backend/
    ```bash
    uvicorn main:app --reload --port 8080
    ```
+
+## 📝 API Documentation
+
+Once the backend is running, access the interactive API documentation at:
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc

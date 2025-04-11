@@ -24,7 +24,6 @@ class User(UserBase):
         from_attributes = True
 
 
-# Banco de dados simulado (em produção use um banco de dados real)
 fake_users_db = {
     1: {
         "id": 1,

@@ -21,7 +21,7 @@ const getters = {
 };
 
 const actions = {
-  async login({ commit }, { email, password }) {
+  async login({ commit, dispatch }, { email, password }) {
     commit('AUTH_REQUEST');
     try {
       const response = await authService.login(email, password);

@@ -18,7 +18,7 @@ export default {
   },
   
   getProfile() {
-    return api.get('/auth/me');
+    return api.get('/auth/users/me');
   },
   
   getUsers() {

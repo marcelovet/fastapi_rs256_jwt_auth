@@ -67,6 +67,19 @@ backend/
    uvicorn main:app --reload --port 8080
    ```
 
+### Frontend Setup
+
+1. **Install dependencies**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+2. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
 ## 📝 API Documentation
 
 Once the backend is running, access the interactive API documentation at:

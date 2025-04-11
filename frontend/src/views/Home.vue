@@ -38,7 +38,7 @@
           <p>
             To access the protected areas of this application, you must first authenticate yourself. The system uses JSON Web Tokens (JWT) with the RS256 algorithm to ensure the security of communications.
           </p>
-          <router-link to="/login" class="btn btn-primary">Fazer login</router-link>
+          <router-link to="/login" class="btn btn-primary">Login</router-link>
         </div>
         
         <div class="tech-overview">

@@ -1,10 +1,6 @@
 from datetime import timedelta
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
-from passlib.context import CryptContext
-
 from app.auth.jwt_handler import (
     create_access_token,
     create_refresh_token,
@@ -13,6 +9,9 @@ from app.auth.jwt_handler import (
 )
 from app.config import ACCESS_TOKEN_EXPIRE_MINUTES
 from app.users.models import User, UserDB, fake_users_db
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from passlib.context import CryptContext
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -89,7 +88,7 @@ async def refresh_token(token: str) -> dict[str, str]:
         )
 
 
-@router.post("/users/me", response_model=User)
+@router.get("/users/me", response_model=User)
 async def read_users_me(
     current_user: Annotated[User, Depends(get_current_user)],
 ) -> User:

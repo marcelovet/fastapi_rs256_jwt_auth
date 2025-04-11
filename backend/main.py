@@ -1,4 +1,5 @@
 from app.auth.routes import router as auth_router
+from app.users.routes import router as users_router
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -15,6 +16,7 @@ app.add_middleware(
 
 # Incluir routers
 app.include_router(auth_router)
+app.include_router(users_router)
 
 
 @app.get("/")

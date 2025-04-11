@@ -34,6 +34,20 @@ backend/
 └── public_key.pem           # RS256 public key
 ```
 
+### Frontend (Vue.js)
+
+```
+frontend/
+├── src/
+│   ├── components/          # Reusable components
+│   ├── views/               # Page components
+│   ├── stores/               # Vuex state management
+│   ├── router/              # Vue Router configuration
+│   ├── services/            # API services
+│   └── assets/              # Static assets
+└── public/                  # Public static files
+```
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -83,5 +97,62 @@ backend/
 ## 📝 API Documentation
 
 Once the backend is running, access the interactive API documentation at:
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+- Swagger UI: http://localhost:8080/docs
+- ReDoc: http://localhost:8080/redoc
+
+## 🔐 Authentication Flow
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant Frontend
+    participant Backend
+    participant Database
+
+    User->>Frontend: Enter credentials
+    Frontend->>Backend: POST /auth/login
+    Backend->>Database: Verify credentials
+    Database-->>Backend: User data
+    Backend->>Backend: Generate JWT tokens
+    Backend-->>Frontend: Return access & refresh tokens
+    Frontend->>Frontend: Store tokens
+    
+    User->>Frontend: Access protected route
+    Frontend->>Backend: Request with Authorization header
+    Backend->>Backend: Validate token
+    Backend-->>Frontend: Protected data
+    
+    Note over Frontend,Backend: When access token expires
+    Frontend->>Backend: POST /auth/refresh with refresh token
+    Backend->>Backend: Validate refresh token
+    Backend-->>Frontend: New access token
+```
+
+## 🛡️ Security Considerations
+
+- **Token Storage**: In production, consider storing tokens in HttpOnly cookies
+- **Key Management**: Store private keys securely using environment variables or secret management services
+- **Token Revocation**: Implement a token blacklist for immediate revocation when needed
+- **Rate Limiting**: Add rate limiting to authentication endpoints to prevent brute force attacks
+- **HTTPS**: Always use HTTPS in production environments
+
+## 🔧 Configuration
+
+### Backend Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Access token lifetime | 30 |
+| `REFRESH_TOKEN_EXPIRE_DAYS` | Refresh token lifetime | 7 |
+| `ALGORITHM` | JWT algorithm | "RS256" |
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## 🙏 Acknowledgements
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [Vue.js](https://vuejs.org/)
+- [PassLib](https://passlib.readthedocs.io/)
+- [python-jose](https://python-jose.readthedocs.io/en/latest/)
